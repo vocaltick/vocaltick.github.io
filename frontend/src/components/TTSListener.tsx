@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import socket from "../services/socket";
 
 const TTSListener = () => {
@@ -31,12 +31,14 @@ const TTSListener = () => {
 
       utterance.rate = rate || 1;
       utterance.pitch = pitch || 1;
-      
+
       // Reproducir el texto
       window.speechSynthesis.speak(utterance);
     });
 
-    return () => socket.off("speak");
+    return () => {
+      socket.off("speak");
+    };
   }, [voices]);
 
   return <div>Escuchando mensajes desde el servidor...</div>;
