@@ -20,6 +20,7 @@ import {
   GridSlots,
 } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
+import { SaveMessagesArray } from "../services/API";
 
 const initialRows: GridRowsProp = [];
 
@@ -55,14 +56,6 @@ export default function TTSControls() {
   const [rows, setRows] = useState(initialRows);
   const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({});
 
-  function SaveMessageArray() {
-    console.log(rows.map((value) => value.message));
-    fetch(`${import.meta.env.VITE_API_URL}/messages`, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(rows.map((value) => value.message)),
-    });
-  }
   useEffect(() => {
     async function fetchData() {
       const fetchdata = await fetch(`${import.meta.env.VITE_API_URL}/messages`);
@@ -90,7 +83,7 @@ export default function TTSControls() {
 
   const handleSaveClick = (id: GridRowId) => () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
-    SaveMessageArray();
+    SaveMessagesArray(rows.map<string>((value) => value.message));
   };
 
   const handleDeleteClick = (id: GridRowId) => () => {

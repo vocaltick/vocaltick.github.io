@@ -8,7 +8,7 @@ import { logger } from "@/utils/logger";
 export const socketHandler = (io: Server) => {
   const intervalManager = IntervalManager.getInstance();
   io.on("connection", (socket) => {
-    logger.info("New web socket connection! " + socket.id);
+    logger.info("New web socket connection! " + socket.id + " Clients number: " + io.engine.clientsCount);
 
     let messageIndex = 0;
 
@@ -28,7 +28,7 @@ export const socketHandler = (io: Server) => {
       handleBoardcastEvent(io, intervalManager, sendMessage)
     );
     socket.on("disconnect", () => {
-      logger.info("Client disconnected " + socket.id);
+      logger.info("Client disconnected " + socket.id + " Clients number: " + io.engine.clientsCount);
       intervalManager.clearInterval(socket);
     });
   });
