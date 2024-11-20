@@ -57,17 +57,15 @@ export default function TTSControls() {
 
   function SaveMessageArray() {
     console.log(rows.map((value) => value.message));
-    fetch(`${import.meta.env.VITE_API_URL}/setmessages`, {
+    fetch(`${import.meta.env.VITE_API_URL}/messages`, {
       method: "POST",
-      headers:{"content-type": "application/json"},
+      headers: { "content-type": "application/json" },
       body: JSON.stringify(rows.map((value) => value.message)),
     });
   }
   useEffect(() => {
     async function fetchData() {
-      const fetchdata = await fetch(
-        `${import.meta.env.VITE_API_URL}/getmessages`
-      );
+      const fetchdata = await fetch(`${import.meta.env.VITE_API_URL}/messages`);
       const fetchedMessages = await fetchdata.json();
       setRows(
         fetchedMessages.map((value: string) => {

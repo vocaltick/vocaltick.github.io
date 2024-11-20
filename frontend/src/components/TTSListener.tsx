@@ -30,7 +30,7 @@ const TTSListener = () => {
       if (selectedVoice) utterance.voice = selectedVoice;
 
       utterance.rate = rate || 1;
-      utterance.pitch = pitch || 1;
+      utterance.pitch = pitch || 0.1;
 
       // Reproducir el texto
       window.speechSynthesis.speak(utterance);
