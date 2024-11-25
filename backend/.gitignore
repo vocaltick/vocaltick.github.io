@@ -1,0 +1,6 @@
+/node_modules
+/dist
+/messages.json
+/package-lock.json
+/server.log
+/.env
